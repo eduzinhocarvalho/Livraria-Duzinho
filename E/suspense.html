@@ -72,12 +72,13 @@
             color: var(--branco);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
-        .logo-icon {
-            color: var(--vermelho);
-            font-size: 2.2rem;
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
         }
 
         nav ul {
@@ -537,6 +538,14 @@
                 padding: 0.7rem 0.8rem;
                 font-size: 0.9rem;
             }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .logo-image {
+                height: 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -593,7 +602,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <i class="fas fa-book-open logo-icon"></i>
+                <img src="../img/logo.png" alt="Logo Livraria Duzinho" class="logo-image">
                 <span>Livraria Duzinho</span>
             </div>
             <nav>
@@ -698,7 +707,7 @@
             author: "Eduardo Carvalho",
             price: "R$ 29,99",
             image: "../img/Último Testamento.png",
-            description: "“Se eu morrer antes dos 70, não acredite na versão oficial. Ouça a gravação.” Com essas palavras, Clara Vieira descobre que a morte do pai, o renomado historiador Antônio Vieira, não foi um simples infarto. Ao encontrar um pendrive oculto com um arquivo chamado “TESTAMENTO”, ela descobre que ele sabia que seria assassinado por fazer parte de um pacto secreto entre professores que, na ditadura, esconderam a verdade sobre um desaparecimento político. Agora, todos os envolvidos estão morrendo, e Clara é a próxima da lista. Em meio a revelações sombrias, vigilância e segredos de família, ela precisa escolher entre justiça e vingança, enquanto a voz de seu pai a empurra a revelar a verdade. O Último Testamento é um thriller psicológico sobre silêncio, culpa e o preço de falar.",
+            description: "“Se eu morrer antes dos 70, não acredite na versão oficial. Ouça a gravação.” Com essas palavras, Clara Vieira descobre que a morte do pai, o renomado historiador Antônio Vieira, não foi um simples infarto. Ao encontrar um pendrive oculto com um arquivo chamado 'TESTAMENTO', ela descobre que ele sabia que seria assassinado por fazer parte de um pacto secreto entre professores que, na ditadura, esconderam a verdade sobre um desaparecimento político. Agora, todos os envolvidos estão morrendo, e Clara é a próxima da lista. Em meio a revelações sombrias, vigilância e segredos de família, ela precisa escolher entre justiça e vingança, enquanto a voz de seu pai a empurra a revelar a verdade. O Último Testamento é um thriller psicológico sobre silêncio, culpa e o preço de falar.",
             pages: "118",
             publisher: "Eduardo Carvalho",
             link: "https://go.hotmart.com/U101655427Q?dp=1"
