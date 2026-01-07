@@ -185,7 +185,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease, transform 1s ease;
+            transition: opacity 1.5s ease, transform 1.5s ease; /* MAIS LENTO: 1.5s */
             display: flex;
             align-items: center;
             padding: 0 5%;
@@ -409,6 +409,133 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
+        /* Seção LivroArt - NOVA */
+        .livroart-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .livroart-card {
+            background: linear-gradient(135deg, var(--cinza-escuro) 0%, var(--cinza-medio) 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid var(--vermelho);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transition: var(--transition);
+        }
+
+        .livroart-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .livroart-header {
+            background: var(--vermelho);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .livroart-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--branco);
+            margin-bottom: 0.5rem;
+        }
+
+        .livroart-header .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: var(--branco);
+        }
+
+        .livroart-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 3rem;
+        }
+
+        .livroart-features h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--vermelho);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .features-list li i {
+            color: var(--vermelho);
+            font-size: 1.3rem;
+            width: 30px;
+        }
+
+        .livroart-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .preview-image {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--cinza-claro);
+            height: 250px;
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .preview-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .livroart-action {
+            text-align: center;
+            padding: 0 3rem 3rem;
+        }
+
+        .livroart-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, #2563eb 100%);
+            color: var(--branco);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .livroart-btn:hover {
+            background: linear-gradient(135deg, var(--vermelho) 0%, #dc2626 100%);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .livroart-btn i {
+            font-size: 1.3rem;
+        }
+
         /* Rodapé - MODIFICADO */
         footer {
             background: var(--cinza-escuro);
@@ -442,6 +569,11 @@
         @media (max-width: 992px) {
             .about-section {
                 grid-template-columns: 1fr;
+            }
+            
+            .livroart-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .categories-dropdown {
@@ -482,6 +614,18 @@
             
             .logo-image {
                 height: 40px;
+            }
+            
+            .livroart-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .livroart-content {
+                padding: 2rem;
+            }
+            
+            .livroart-action {
+                padding: 0 2rem 2rem;
             }
         }
     </style>
@@ -535,8 +679,8 @@
             <div class="slide-content">
                 <span class="slide-tag">Novos Escritores</span>
                 <h2 class="slide-title">Comece a escrever seu livro hoje!</h2>
-                <p class="slide-description">Se você tem um sonho de escrever um livro sem precisar de um papel e uma caneta, conheça a LivroArt!</p>
-                <a href="https://livroart.netlify.app/" class="slide-btn" target="_blank">LivroArt <i class="fas fa-arrow-right"></i></a>
+                <p class="slide-description">Conheça a plataforma perfeita para novos escritores realizarem seu sonho literário.</p>
+                <!-- Botão LivroArt REMOVIDO do slider -->
             </div>
         </div>
         
@@ -584,6 +728,62 @@
         </div>
     </section>
 
+    <!-- NOVA Seção LivroArt -->
+    <section class="livroart-section" id="livroart">
+        <div class="livroart-card fade-in">
+            <div class="livroart-header">
+                <h2>LivroArt</h2>
+                <p class="tagline">A plataforma definitiva para escritores digitais</p>
+            </div>
+            
+            <div class="livroart-content">
+                <div class="livroart-features">
+                    <h3>Escreva seu livro com estilo</h3>
+                    <p>LivroArt é a ferramenta perfeita para quem sonha em escrever um livro. Crie obras completas com todas as funcionalidades que um autor precisa.</p>
+                    
+                    <ul class="features-list">
+                        <li>
+                            <i class="fas fa-book-open"></i>
+                            <span>Editor de texto avançado </span>
+                        </li>
+                        <li>
+                            <i class="fas fa-palette"></i>
+                            <span>Crie capas personalizadas para seu livro</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-list-ol"></i>
+                            <span>Gere sumários automáticos e organize capítulos</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-save"></i>
+                            <span>Salvamento automático no seu navegador - nunca perca seu trabalho</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-download"></i>
+                            <span>Exporte em PDF seus livros</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="livroart-preview">
+                    <div class="preview-image">
+                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Interface do LivroArt">
+                    </div>
+                    <div class="preview-image">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Exemplo de livro criado no LivroArt">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="livroart-action">
+                <a href="https://livroart.netlify.app/" class="livroart-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    Comece a escrever no LivroArt
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Rodapé Simplificado -->
     <footer>
         <div class="copyright">
@@ -599,6 +799,7 @@
             const prevArrow = document.querySelector('.arrow.prev');
             const nextArrow = document.querySelector('.arrow.next');
             let currentSlide = 0;
+            let slideInterval;
             
             // Função para mostrar um slide específico
             function showSlide(n) {
@@ -615,6 +816,22 @@
                 content.classList.remove('fade-in');
                 void content.offsetWidth; // Dispara reflow
                 content.classList.add('fade-in');
+                
+                // Reinicia o intervalo automático
+                resetInterval();
+            }
+            
+            // Função para iniciar intervalo automático
+            function startInterval() {
+                slideInterval = setInterval(() => {
+                    showSlide(currentSlide + 1);
+                }, 8000); // MAIS LENTO: 8 segundos (era 6)
+            }
+            
+            // Função para resetar o intervalo
+            function resetInterval() {
+                clearInterval(slideInterval);
+                startInterval();
             }
             
             // Event listeners para os dots
@@ -633,10 +850,18 @@
                 showSlide(currentSlide + 1);
             });
             
-            // Troca automática de slides
-            setInterval(() => {
-                showSlide(currentSlide + 1);
-            }, 6000);
+            // Pausa o slider quando o mouse está sobre ele
+            const slider = document.querySelector('.hero-slider');
+            slider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                startInterval();
+            });
+            
+            // Inicia o intervalo automático
+            startInterval();
             
             // Efeito de parallax no scroll
             window.addEventListener('scroll', () => {
@@ -664,9 +889,41 @@
                 });
             }, observerOptions);
             
-            document.querySelectorAll('.about-content, .about-image, .cta-box').forEach((el) => {
+            document.querySelectorAll('.about-content, .about-image, .cta-box, .livroart-card').forEach((el) => {
                 observer.observe(el);
             });
+            
+            // Scroll suave para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Tratamento especial para o botão LivroArt
+            const livroartBtn = document.querySelector('.livroart-btn');
+            if (livroartBtn) {
+                // Remover qualquer event listener que possa interferir
+                const newLivroartBtn = livroartBtn.cloneNode(true);
+                livroartBtn.parentNode.replaceChild(newLivroartBtn, livroartBtn);
+                
+                // Adicionar event listener simples
+                newLivroartBtn.addEventListener('click', function(e) {
+                    // Permitir que o link externo funcione normalmente
+                    console.log('Abrindo LivroArt...');
+                });
+            }
         });
     </script>
 </body>
