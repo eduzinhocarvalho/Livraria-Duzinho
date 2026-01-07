@@ -72,12 +72,13 @@
             color: var(--branco);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
-        .logo-icon {
-            color: var(--vermelho);
-            font-size: 2.2rem;
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
         }
 
         nav ul {
@@ -537,6 +538,14 @@
                 padding: 0.7rem 0.8rem;
                 font-size: 0.9rem;
             }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .logo-image {
+                height: 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -593,7 +602,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <i class="fas fa-book-open logo-icon"></i>
+                <img src="../img/logo.png" alt="Logo Livraria Duzinho" class="logo-image">
                 <span>Livraria Duzinho</span>
             </div>
             <nav>
@@ -633,7 +642,17 @@
         <!-- Container para o livro único -->
         <section class="single-book-container">
             <!-- Livro 1 -->
-           
+            <div class="book-card fade-in delay-1">
+                <img src="img/O Amor que Sangra.png" alt="O Amor que Sangra" class="book-image" id="bookCover">
+                <div class="book-info">
+                    <h3 class="book-title">O Amor que Sangra</h3>
+                    <p class="book-author">Eduardo Carvalho</p>
+                    <p class="book-price">R$ 19,99</p>
+                    <div class="book-actions">
+                        <button class="btn btn-details">Detalhes</button>
+                        <button class="btn btn-buy" id="buyButton">Comprar</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -818,5 +837,4 @@
         // Exemplo: updateBookImage('img/novo_livro.jpg');
     </script>
 </body>
-
 </html>
