@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenvolvimento Pessoal | Livraria Duzinho</title>
+    <title>Ficção Científica | Livraria Duzinho</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
@@ -72,12 +72,13 @@
             color: var(--branco);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
 
-        .logo-icon {
-            color: var(--vermelho);
-            font-size: 2.2rem;
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
         }
 
         nav ul {
@@ -537,6 +538,14 @@
                 padding: 0.7rem 0.8rem;
                 font-size: 0.9rem;
             }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .logo-image {
+                height: 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -593,31 +602,31 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <i class="fas fa-book-open logo-icon"></i>
+                <img src="img/logo.png" alt="Logo Livraria Duzinho" class="logo-image">
                 <span>Livraria Duzinho</span>
             </div>
             <nav>
                 <ul>
-                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="inicio.html">Início</a></li>
                     <li>
                         <a href="#">Categorias</a>
                         <div class="categories-dropdown">
                             <!-- Categorias modificadas para apenas botões -->
-                            <a href="dark-romance.html" class="category-btn">Dark Romance</a>
-                            <a href="romance.html" class="category-btn">Romance</a>
-                            <a href="terror.html" class="category-btn">Terror</a>
-                            <a href="suspense.html" class="category-btn">Suspense</a>
-                            <a href="investigacao.html" class="category-btn">Investigação</a>
-                            <a href="misterio.html" class="category-btn">Mistério</a>
-                            <a href="ficcao-cientifica.html" class="category-btn">Ficção Científica</a>
-                            <a href="poesia.html" class="category-btn">Poesia</a>
-                            <a href="classicos.html" class="category-btn">Clássicos</a>
-                            <a href="infantis.html" class="category-btn">Infantis</a>
-                            <a href="manga.html" class="category-btn">Mangá</a>
-                            <a href="desenvolvimento-pessoal.html" class="category-btn">Desenvolvimento Pessoal</a>
+                            <a href="E/dark-romance.html" class="category-btn">Dark Romance</a>
+                            <a href="E/romance.html" class="category-btn">Romance</a>
+                            <a href="E/terror.html" class="category-btn">Terror</a>
+                            <a href="E/suspense.html" class="category-btn">Suspense</a>
+                            <a href="E/investigacao.html" class="category-btn">Investigação</a>
+                            <a href="E/misterio.html" class="category-btn">Mistério</a>
+                            <a href="E/ficcao-cientifica.html" class="category-btn">Ficção Científica</a>
+                            <a href="E/poesia.html" class="category-btn">Poesia</a>
+                            <a href="E/classicos.html" class="category-btn">Clássicos</a>
+                            <a href="E/infantis.html" class="category-btn">Infantis</a>
+                            <a href="E/manga.html" class="category-btn">Mangá</a>
+                            <a href="E/desenvolvimento-pessoal.html" class="category-btn">Desenvolvimento Pessoal</a>
                         </div>
                     </li>
-                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="E/contato.html">Contato</a></li>
                 </ul>
             </nav>
         </div>
@@ -626,14 +635,14 @@
     <!-- Conteúdo Principal -->
     <main class="main-content">
         <div class="page-header fade-in">
-            <h1 class="page-title">Desenvolvimento Pessoal</h1>
-            <p class="page-subtitle">A jornada de se tornar a sua melhor versão</p>
+            <h1 class="page-title">Ficção Científica</h1>
+            <p class="page-subtitle">Explore universos além da imaginação</p>
         </div>
 
         <!-- Container para o livro único -->
         <section class="single-book-container">
             <!-- Livro 1 -->
-            
+           
             </div>
         </section>
     </main>
@@ -818,5 +827,4 @@
         // Exemplo: updateBookImage('img/novo_livro.jpg');
     </script>
 </body>
-
 </html>
