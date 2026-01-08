@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficção Científica | Livraria Duzinho</title>
+    <title>Desenvolvimento Pessoal | Livraria Duzinho</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <script>
         (function() {
-            // CHAVE PÚBLICA CORRIGIDA - substituída pela sua chave real
             emailjs.init("bkTWKb8tSOEtQJVOC");
             console.log("EmailJS inicializado com sucesso");
         })();
@@ -119,25 +118,51 @@
             color: var(--vermelho);
         }
 
-        /* Menu de Categorias Dropdown */
+        /* MENU DE CATEGORIAS DROPDOWN - IGUAL AOS OUTROS */
         .categories-dropdown {
             position: absolute;
             top: 100%;
             left: 0;
-            width: 250px;
+            width: 300px;
             background: var(--cinza-escuro);
-            border-radius: 8px;
-            box-shadow: 0 10px (0, 0, 0, 0.4);
-            padding: 0.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 0;
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
             transition: var(--transition);
-            z-index: 100;
-            border: 2px solid var(--vermelho);
+            z-index: 1000;
+            border: 3px solid var(--vermelho);
+            max-height: 600px;
+            height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thick;
+            scrollbar-color: var(--vermelho) var(--cinza-medio);
+        }
+
+        .categories-dropdown::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        .categories-dropdown::-webkit-scrollbar-track {
+            background: var(--cinza-medio);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .categories-dropdown::-webkit-scrollbar-thumb {
+            background: var(--vermelho);
+            border-radius: 8px;
+            border: 3px solid var(--cinza-medio);
+        }
+
+        .categories-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #cc0000;
+            transform: scale(1.1);
         }
 
         nav ul li:hover .categories-dropdown {
@@ -147,9 +172,10 @@
         }
 
         .category-btn {
-            display: block;
+            display: flex;
+            align-items: center;
             width: 100%;
-            padding: 0.8rem 1.2rem;
+            padding: 16px 20px;
             transition: var(--transition);
             background: var(--cinza-escuro);
             color: var(--branco);
@@ -158,7 +184,9 @@
             cursor: pointer;
             text-decoration: none;
             border: none;
-            border-bottom: 1px solid var(--cinza-claro);
+            border-bottom: 2px solid var(--cinza-claro);
+            font-size: 1.05rem;
+            min-height: 60px;
         }
 
         .category-btn:last-child {
@@ -168,8 +196,61 @@
         .category-btn:hover {
             background: var(--vermelho);
             color: var(--branco);
-            transform: none;
-            border-color: transparent;
+            padding-left: 25px;
+            font-weight: 600;
+        }
+
+        .category-btn i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Seta ao lado de "Categorias" - AGORA ESTÁ AQUI */
+        .categories-link::after {
+            content: ' ▼';
+            font-size: 0.7em;
+            margin-left: 5px;
+            opacity: 0.7;
+            vertical-align: middle;
+        }
+
+        /* Indicador visual de scroll */
+        .categories-dropdown::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 14px;
+            height: 30px;
+            background: linear-gradient(to bottom, transparent, var(--cinza-escuro) 90%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .categories-dropdown.scrollable::after {
+            opacity: 1;
+        }
+
+        /* Indicador animado para mostrar que tem mais itens */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: var(--vermelho);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-5px);}
+            60% {transform: translateY(-3px);}
         }
 
         /* Conteúdo Principal */
@@ -475,11 +556,13 @@
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
 
-        /* Responsividade */
+        /* RESPONSIVIDADE */
         @media (max-width: 992px) {
             .categories-dropdown {
-                width: 220px;
+                width: 280px;
                 left: -50px;
+                max-height: 550px;
+                height: 550px;
             }
         }
 
@@ -504,10 +587,16 @@
             }
             
             .categories-dropdown {
-                width: 200px;
+                width: 260px;
                 left: -80px;
-                overflow-y: auto;
-                max-height: 400px;
+                max-height: 500px;
+                height: 500px;
+            }
+            
+            .category-btn {
+                padding: 14px 18px;
+                font-size: 1rem;
+                min-height: 55px;
             }
             
             .book-actions {
@@ -576,28 +665,28 @@
             .book-price {
                 font-size: 1.2rem;
             }
+            
+            .categories-dropdown {
+                width: 240px;
+                left: -60px;
+                max-height: 450px;
+                height: 450px;
+            }
+            
+            .category-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+                min-height: 50px;
+            }
         }
 
-        /* Debug Info */
-        .debug-info {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            z-index: 10000;
-            display: none;
-            max-width: 80%;
+        /* Estilo para garantir scroll visível */
+        .scroll-visible {
+            overflow-y: scroll !important;
         }
     </style>
 </head>
 <body>
-    <!-- Debug Info -->
-    <div class="debug-info" id="debugInfo"></div>
-
     <!-- Header e Navegação -->
     <header>
         <div class="header-container">
@@ -609,21 +698,50 @@
                 <ul>
                     <li><a href="../inicio.html">Início</a></li>
                     <li>
-                        <a href="#">Categorias</a>
-                        <div class="categories-dropdown">
-                            <!-- Categorias modificadas para apenas botões -->
-                            <a href="dark-romance.html" class="category-btn">Dark Romance</a>
-                            <a href="romance.html" class="category-btn">Romance</a>
-                            <a href="terror.html" class="category-btn">Terror</a>
-                            <a href="suspense.html" class="category-btn">Suspense</a>
-                            <a href="investigacao.html" class="category-btn">Investigação</a>
-                            <a href="misterio.html" class="category-btn">Mistério</a>
-                            <a href="ficcao-cientifica.html" class="category-btn">Ficção Científica</a>
-                            <a href="poesia.html" class="category-btn">Poesia</a>
-                            <a href="classicos.html" class="category-btn">Clássicos</a>
-                            <a href="infantis.html" class="category-btn">Infantis</a>
-                            <a href="manga.html" class="category-btn">Mangá</a>
-                            <a href="desenvolvimento-pessoal.html" class="category-btn">Desenvolvimento Pessoal</a>
+                        <!-- CLASSE ADICIONADA PARA A SETA -->
+                        <a href="#" class="categories-link">Categorias</a>
+                        <div class="categories-dropdown scroll-visible" id="categoriesDropdown">
+                            <!-- Categorias COM ÍCONES (igual aos outros) -->
+                            <a href="dark-romance.html" class="category-btn">
+                                <i class="fas fa-heart-broken"></i> Dark Romance
+                            </a>
+                            <a href="romance.html" class="category-btn">
+                                <i class="fas fa-heart"></i> Romance
+                            </a>
+                            <a href="terror.html" class="category-btn">
+                                <i class="fas fa-ghost"></i> Terror
+                            </a>
+                            <a href="suspense.html" class="category-btn">
+                                <i class="fas fa-question-circle"></i> Suspense
+                            </a>
+                            <a href="investigacao.html" class="category-btn">
+                                <i class="fas fa-search"></i> Investigação
+                            </a>
+                            <a href="misterio.html" class="category-btn">
+                                <i class="fas fa-user-secret"></i> Mistério
+                            </a>
+                            <a href="ficcao-cientifica.html" class="category-btn">
+                                <i class="fas fa-rocket"></i> Ficção Científica
+                            </a>
+                            <a href="poesia.html" class="category-btn">
+                                <i class="fas fa-pen-fancy"></i> Poesia
+                            </a>
+                            <a href="classicos.html" class="category-btn">
+                                <i class="fas fa-crown"></i> Clássicos
+                            </a>
+                            <a href="infantis.html" class="category-btn">
+                                <i class="fas fa-child"></i> Infantis
+                            </a>
+                            <a href="manga.html" class="category-btn">
+                                <i class="fas fa-book-open"></i> Mangá
+                            </a>
+                            <a href="desenvolvimento-pessoal.html" class="category-btn">
+                                <i class="fas fa-chart-line"></i> Desenvolvimento Pessoal
+                            </a>
+                            <!-- INDICADOR DE SCROLL ANIMADO -->
+                            <div class="scroll-indicator">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
                     </li>
                     <li><a href="contato.html">Contato</a></li>
@@ -635,14 +753,24 @@
     <!-- Conteúdo Principal -->
     <main class="main-content">
         <div class="page-header fade-in">
-            <h1 class="page-title">Ficção Científica</h1>
-            <p class="page-subtitle">Explore universos além da imaginação</p>
+            <h1 class="page-title">Desenvolvimento Pessoal</h1>
+            <p class="page-subtitle">Transforme sua vida página por página</p>
         </div>
 
         <!-- Container para o livro único -->
         <section class="single-book-container">
             <!-- Livro 1 -->
-           
+            <div class="book-card fade-in">
+                <img src="img/O Amor que Sangra.png" alt="O Amor que Sangra" class="book-image" id="bookCover">
+                <div class="book-info">
+                    <h3 class="book-title">O Amor que Sangra</h3>
+                    <p class="book-author">Eduardo Carvalho</p>
+                    <p class="book-price">R$ 19,99</p>
+                    <div class="book-actions">
+                        <button class="btn btn-details">Detalhes</button>
+                        <button class="btn btn-buy" id="buyButton">Comprar</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -691,16 +819,16 @@
     </footer>
 
     <script>
-        // Dados do livro
+        // Dados do livro - LIVRO DE DESENVOLVIMENTO PESSOAL (ATUALIZADO)
         const book = {
-            title: "O Amor que Sangra",
-            author: "Eduardo Carvalho",
-            price: "R$ 19,99",
-            image: "img/O Amor que Sangra.png",
-            description: "Ela fugiu do passado com uma regra: nunca se envolver. Ele chegou sem aviso, com olhos que veem além das máscaras e um segredo capaz de destruí-la. No submundo onde poder se conquista com sangue e silêncio, um encontro casual vira obsessão. Entre toques proibidos, jogos de posse e cicatrizes que nunca curaram, eles desafiam a única regra que não podiam quebrar: nunca se apaixonar. Porque nesse mundo, amar não é só perigoso — amar sangra. Um romance intenso sobre dor, redenção e o preço de ser visto por quem também está quebrado.",
-            pages: "78",
-            publisher: "Eduardo Carvalho",
-            link: "https://go.hotmart.com/A101430721M?dp=1"
+            title: "Hábitos Atômicos",
+            author: "James Clear",
+            price: "R$ 39,90",
+            image: "img/habitos-atomicos.jpg",
+            description: "Transforme sua vida com pequenos hábitos. James Clear revela uma estratégia prática para construir bons hábitos, quebrar maus hábitos e dominar os pequenos comportamentos que levam a resultados notáveis. Baseado em ciência comprovada, este livro mostra como pequenas mudanças podem gerar impactos extraordinários na sua saúde, produtividade e felicidade.",
+            pages: "320",
+            publisher: "Editora Intrínseca",
+            link: "https://exemplo.com/livro-desenvolvimento-pessoal"
         };
 
         // Elementos do DOM
@@ -717,14 +845,71 @@
         const buyButton = document.getElementById('buyButton');
         const notification = document.getElementById('emailNotification');
         const bookCover = document.getElementById('bookCover');
-        const debugInfo = document.getElementById('debugInfo');
+        const categoriesDropdown = document.getElementById('categoriesDropdown');
 
-        // Mostrar informações de debug
-        function showDebugInfo(message) {
-            debugInfo.textContent = message;
-            debugInfo.style.display = 'block';
-            console.log(message);
-        }
+        // CONFIGURAÇÃO COMPLETA DO DROPDOWN (IGUAL AOS OUTROS)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("=== INICIALIZANDO DROPDOWN IGUAL AOS OUTROS ===");
+            
+            if (categoriesDropdown) {
+                // Forçar scroll visível
+                categoriesDropdown.style.overflowY = 'scroll';
+                categoriesDropdown.classList.add('scroll-visible');
+                
+                // Verificar se precisa mostrar indicador de scroll
+                const checkScroll = () => {
+                    const needsScroll = categoriesDropdown.scrollHeight > categoriesDropdown.clientHeight;
+                    if (needsScroll) {
+                        categoriesDropdown.classList.add('scrollable');
+                        console.log("✅ Dropdown tem scroll - indicador ativado");
+                    }
+                };
+                
+                // Adicionar eventos para melhor experiência (IGUAL AOS OUTROS)
+                categoriesDropdown.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 20px 50px rgba(139, 0, 0, 0.4)';
+                    checkScroll();
+                });
+                
+                categoriesDropdown.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.5)';
+                });
+                
+                // Permitir scroll com roda do mouse (IMPORTANTE)
+                categoriesDropdown.addEventListener('wheel', function(e) {
+                    this.scrollTop += e.deltaY;
+                    e.preventDefault();
+                });
+                
+                // Tooltip (IGUAL AOS OUTROS)
+                const categoriesLink = document.querySelector('.categories-link');
+                if (categoriesLink) {
+                    categoriesLink.title = "Clique ou passe o mouse para ver todas as categorias";
+                    
+                    // Adicionar seta via JavaScript também (para garantir)
+                    if (!categoriesLink.innerHTML.includes('▼')) {
+                        categoriesLink.innerHTML += ' <span style="font-size:0.7em; opacity:0.7">▼</span>';
+                    }
+                }
+                
+                // Mostrar informações no console
+                setTimeout(() => {
+                    console.log("📏 Dimensões do dropdown:");
+                    console.log("- Largura:", categoriesDropdown.offsetWidth, "px");
+                    console.log("- Altura:", categoriesDropdown.offsetHeight, "px");
+                    console.log("- Altura do conteúdo:", categoriesDropdown.scrollHeight, "px");
+                    console.log("- Ícones presentes:", document.querySelectorAll('.category-btn i').length);
+                    console.log("- Setinha no link:", categoriesLink ? categoriesLink.innerHTML.includes('▼') : 'Não encontrado');
+                }, 100);
+                
+                console.log("✅ Dropdown configurado exatamente igual aos outros");
+            }
+            
+            // Atualizar dados do livro (opcional)
+            document.querySelector('.book-title').textContent = book.title;
+            document.querySelector('.book-author').textContent = book.author;
+            document.querySelector('.book-price').textContent = book.price;
+        });
 
         // Função para atualizar a imagem do livro
         function updateBookImage(imageUrl) {
@@ -761,14 +946,10 @@
             }
         });
 
-        // Enviar email ao clicar em Comprar - VERSÃO COM DEBUG COMPLETO
+        // Enviar email ao clicar em Comprar
         function handleBuyClick() {
-            console.log("=== DEBUG: Iniciando processo de compra ===");
+            console.log("=== PROCESSO DE COMPRA ===");
             
-            // Verificar se o EmailJS está inicializado corretamente
-            console.log("EmailJS inicializado:", typeof emailjs !== 'undefined' ? 'Sim' : 'Não');
-            
-            // Enviar email via EmailJS com informações completas do livro
             const templateParams = {
                 to_email: "livraria.duzinho@gmail.com",
                 book_title: book.title,
@@ -777,21 +958,9 @@
                 message: `Alguém clicou em comprar o livro: ${book.title} por ${book.author} no valor de ${book.price}`
             };
 
-            console.log("Parâmetros sendo enviados:", JSON.stringify(templateParams, null, 2));
-            console.log("Serviço ID: service_yvmez3x");
-            console.log("Template ID: template_mut7k4e");
-
-            showDebugInfo("Enviando email...");
-
-            // USANDO O NOVO ID DO TEMPLATE: template_mut7k4e
             emailjs.send('service_yvmez3x', 'template_mut7k4e', templateParams)
                 .then((response) => {
-                    console.log('✅ SUCESSO: E-mail enviado com sucesso!');
-                    console.log('Resposta completa:', response);
-                    console.log('Status:', response.status);
-                    console.log('Texto:', response.text);
-                    
-                    showDebugInfo('✅ E-mail enviado! Status: ' + response.status);
+                    console.log('✅ E-mail enviado com sucesso!');
                     
                     // Mostrar notificação
                     notification.classList.add('show');
@@ -802,15 +971,9 @@
                     }, 3000);
                 })
                 .catch(error => {
-                    console.error('❌ ERRO: Falha ao enviar email:');
-                    console.error('Objeto de erro completo:', error);
-                    console.log('Código do erro:', error?.code);
-                    console.log('Mensagem do erro:', error?.text);
-                    console.log('Status do erro:', error?.status);
+                    console.error('❌ Erro ao enviar email:', error);
                     
-                    showDebugInfo('❌ Erro ao enviar email. Verifique o console.');
-                    
-                    // Mesmo com erro, redireciona para o link após mostrar alerta
+                    // Mesmo com erro, redireciona
                     setTimeout(() => {
                         alert('Obrigado pela compra! Você será redirecionado agora.');
                         window.location.href = book.link;
@@ -822,13 +985,8 @@
         buyButton.addEventListener('click', handleBuyClick);
         modalBuy.addEventListener('click', handleBuyClick);
 
-        // Para alterar a imagem do livro, você pode chamar:
-        // updateBookImage('nova_url_da_imagem.jpg');
-        // Exemplo: updateBookImage('img/novo_livro.jpg');
+        // Para alterar a imagem do livro
+        // updateBookImage('img/novo-livro.jpg');
     </script>
 </body>
 </html>
-
-
-
-
