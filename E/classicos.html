@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <script>
         (function() {
-            // CHAVE PÚBLICA CORRIGIDA - substituída pela sua chave real
             emailjs.init("bkTWKb8tSOEtQJVOC");
             console.log("EmailJS inicializado com sucesso");
         })();
@@ -119,37 +118,69 @@
             color: var(--vermelho);
         }
 
-        /* Menu de Categorias Dropdown */
+        /* MENU DE CATEGORIAS COM SCROLL FUNCIONAL */
         .categories-dropdown {
             position: absolute;
             top: 100%;
             left: 0;
-            width: 250px;
+            width: 280px; /* Ligeiramente maior para melhor visualização */
             background: var(--cinza-escuro);
             border-radius: 8px;
-            box-shadow: 0 10px (0, 0, 0, 0.4);
-            padding: 0.5rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 0;
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
             transition: var(--transition);
-            z-index: 100;
+            z-index: 1000;
             border: 2px solid var(--vermelho);
+            /* CORREÇÕES PARA SCROLL FUNCIONAL */
+            max-height: 65vh; /* Usa 65% da altura da tela */
+            overflow-y: auto; /* Scroll vertical */
+            overflow-x: hidden; /* Sem scroll horizontal */
+            /* Garantir que o dropdown apareça acima de outros elementos */
+            transform-origin: top center;
+        }
+
+        /* SCROLLBAR PERSONALIZADA */
+        .categories-dropdown::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .categories-dropdown::-webkit-scrollbar-track {
+            background: var(--cinza-medio);
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .categories-dropdown::-webkit-scrollbar-thumb {
+            background: var(--vermelho);
+            border-radius: 5px;
+            border: 2px solid var(--cinza-medio);
+        }
+
+        .categories-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #cc0000;
+        }
+
+        /* Para Firefox */
+        .categories-dropdown {
+            scrollbar-width: thin;
+            scrollbar-color: var(--vermelho) var(--cinza-medio);
         }
 
         nav ul li:hover .categories-dropdown {
             opacity: 1;
             visibility: visible;
-            transform: translateY(10px);
+            transform: translateY(5px);
         }
 
         .category-btn {
             display: block;
             width: 100%;
-            padding: 0.8rem 1.2rem;
+            padding: 12px 16px;
             transition: var(--transition);
             background: var(--cinza-escuro);
             color: var(--branco);
@@ -159,10 +190,11 @@
             text-decoration: none;
             border: none;
             border-bottom: 1px solid var(--cinza-claro);
-        }
-
-        .category-btn:last-child {
-            border-bottom: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.95rem;
+            position: relative;
         }
 
         .category-btn:hover {
@@ -170,6 +202,29 @@
             color: var(--branco);
             transform: none;
             border-color: transparent;
+            padding-left: 20px;
+        }
+
+        .category-btn:last-child {
+            border-bottom: none;
+        }
+
+        /* Indicador visual de scroll */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, transparent, var(--cinza-escuro) 80%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .categories-dropdown.scrollable .scroll-indicator {
+            opacity: 1;
         }
 
         /* Conteúdo Principal */
@@ -475,11 +530,12 @@
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
 
-        /* Responsividade */
+        /* RESPONSIVIDADE - AJUSTES IMPORTANTES */
         @media (max-width: 992px) {
             .categories-dropdown {
-                width: 220px;
+                width: 250px;
                 left: -50px;
+                max-height: 60vh;
             }
         }
 
@@ -504,10 +560,9 @@
             }
             
             .categories-dropdown {
-                width: 200px;
+                width: 220px;
                 left: -80px;
-                overflow-y: auto;
-                max-height: 400px;
+                max-height: 50vh;
             }
             
             .book-actions {
@@ -576,6 +631,31 @@
             .book-price {
                 font-size: 1.2rem;
             }
+            
+            .categories-dropdown {
+                width: 200px;
+                left: -60px;
+                max-height: 45vh;
+            }
+        }
+
+        /* Ajustes específicos para altura da tela */
+        @media (max-height: 800px) {
+            .categories-dropdown {
+                max-height: 55vh;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .categories-dropdown {
+                max-height: 40vh;
+            }
+        }
+
+        @media (max-height: 400px) {
+            .categories-dropdown {
+                max-height: 30vh;
+            }
         }
 
         /* Debug Info */
@@ -591,6 +671,11 @@
             z-index: 10000;
             display: none;
             max-width: 80%;
+        }
+
+        /* Classe para mostrar que tem scroll */
+        .has-scroll {
+            box-shadow: inset 0 -10px 10px -10px rgba(139, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -609,9 +694,9 @@
                 <ul>
                     <li><a href="../inicio.html">Início</a></li>
                     <li>
-                        <a href="#">Categorias</a>
-                        <div class="categories-dropdown">
-                            <!-- Categorias modificadas para apenas botões -->
+                        <a href="#" id="categoriesLink">Categorias <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                        <div class="categories-dropdown" id="categoriesDropdown">
+                            <!-- Categorias -->
                             <a href="dark-romance.html" class="category-btn">Dark Romance</a>
                             <a href="romance.html" class="category-btn">Romance</a>
                             <a href="terror.html" class="category-btn">Terror</a>
@@ -624,6 +709,7 @@
                             <a href="infantis.html" class="category-btn">Infantis</a>
                             <a href="manga.html" class="category-btn">Mangá</a>
                             <a href="desenvolvimento-pessoal.html" class="category-btn">Desenvolvimento Pessoal</a>
+                            <div class="scroll-indicator"></div>
                         </div>
                     </li>
                     <li><a href="contato.html">Contato</a></li>
@@ -642,7 +728,17 @@
         <!-- Container para o livro único -->
         <section class="single-book-container">
             <!-- Livro 1 -->
-        
+            <div class="book-card fade-in">
+                <img src="img/O Amor que Sangra.png" alt="O Amor que Sangra" class="book-image" id="bookCover">
+                <div class="book-info">
+                    <h3 class="book-title">O Amor que Sangra</h3>
+                    <p class="book-author">Eduardo Carvalho</p>
+                    <p class="book-price">R$ 19,99</p>
+                    <div class="book-actions">
+                        <button class="btn btn-details">Detalhes</button>
+                        <button class="btn btn-buy" id="buyButton">Comprar</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -718,6 +814,8 @@
         const notification = document.getElementById('emailNotification');
         const bookCover = document.getElementById('bookCover');
         const debugInfo = document.getElementById('debugInfo');
+        const categoriesDropdown = document.getElementById('categoriesDropdown');
+        const categoriesLink = document.getElementById('categoriesLink');
 
         // Mostrar informações de debug
         function showDebugInfo(message) {
@@ -725,6 +823,60 @@
             debugInfo.style.display = 'block';
             console.log(message);
         }
+
+        // CONFIGURAR SCROLL DO DROPDOWN
+        document.addEventListener('DOMContentLoaded', function() {
+            if (categoriesDropdown) {
+                // Verificar se precisa de scroll
+                const checkScrollNeeded = () => {
+                    const isScrollable = categoriesDropdown.scrollHeight > categoriesDropdown.clientHeight;
+                    
+                    if (isScrollable) {
+                        categoriesDropdown.classList.add('has-scroll');
+                        console.log('Dropdown precisa de scroll');
+                        console.log('Altura total:', categoriesDropdown.scrollHeight, 'px');
+                        console.log('Altura visível:', categoriesDropdown.clientHeight, 'px');
+                    } else {
+                        categoriesDropdown.classList.remove('has-scroll');
+                    }
+                };
+
+                // Verificar quando o dropdown é aberto
+                const categoriesLi = categoriesLink.parentElement;
+                
+                categoriesLi.addEventListener('mouseenter', function() {
+                    // Pequeno delay para garantir que o dropdown esteja visível
+                    setTimeout(checkScrollNeeded, 50);
+                });
+
+                // Verificar também ao carregar a página
+                setTimeout(checkScrollNeeded, 100);
+
+                // Adicionar indicador visual quando estiver rolando
+                categoriesDropdown.addEventListener('scroll', function() {
+                    const isAtBottom = this.scrollHeight - this.scrollTop === this.clientHeight;
+                    const isAtTop = this.scrollTop === 0;
+                    
+                    if (!isAtBottom && !isAtTop) {
+                        this.classList.add('scrolling');
+                    } else {
+                        this.classList.remove('scrolling');
+                    }
+                });
+
+                // Adicionar título explicativo
+                categoriesLink.title = "Passe o mouse sobre 'Categorias' e role para ver todas as opções";
+            }
+
+            // Testar scroll no console
+            console.log("=== TESTE DE SCROLL DO DROPDOWN ===");
+            console.log("Elemento dropdown encontrado:", !!categoriesDropdown);
+            
+            if (categoriesDropdown) {
+                console.log("Altura do dropdown:", categoriesDropdown.offsetHeight, "px");
+                console.log("Overflow-y definido como:", window.getComputedStyle(categoriesDropdown).overflowY);
+            }
+        });
 
         // Função para atualizar a imagem do livro
         function updateBookImage(imageUrl) {
@@ -761,7 +913,7 @@
             }
         });
 
-        // Enviar email ao clicar em Comprar - VERSÃO COM DEBUG COMPLETO
+        // Enviar email ao clicar em Comprar
         function handleBuyClick() {
             console.log("=== DEBUG: Iniciando processo de compra ===");
             
